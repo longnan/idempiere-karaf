@@ -9,7 +9,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-17
 Automatic-Module-Name: org.idempiere.zk.billboard.chart
 Import-Package: org.osgi.framework,
  org.osgi.service.component,
- org.osgi.service.component.annotations
+ org.osgi.service.component.annotations;resolution:="optional"
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.adempiere.ui.zk,
  org.adempiere.base,
@@ -24,4 +24,3 @@ Require-Bundle: org.adempiere.ui.zk,
  zkwebfragment,
  zweb,
  org.idempiere.zk.billboard
-Service-Component: OSGI-INF/org.idempiere.zk.billboard.chart.ChartRendererServiceImpl.xml

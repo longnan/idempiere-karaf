@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<features name="${project.artifactId}-${project.version}"
+    xmlns="http://karaf.apache.org/xmlns/features/v1.5.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://karaf.apache.org/xmlns/features/v1.5.0 http://karaf.apache.org/xmlns/features/v1.5.0">
+    <repository>mvn:org.apache.activemq/activemq-karaf/${activemq.version}/xml/features</repository>
+    <repository>mvn:org.apache.cxf.karaf/apache-cxf/${cxf.version}/xml/features</repository>
+    <repository>mvn:io.hawt/hawtio-karaf/${hawtio.version}/xml/features</repository>
+    <feature name="${project.groupId}.internal">
+        <feature>scr</feature>
+        <feature>war</feature>
+        <feature>jakarta.annotation</feature>
+        <feature>activation</feature>
+        <feature>jws</feature>
+        <feature>jaxb</feature>
+        <feature>jaxrs</feature>
+        <feature>jaxws</feature>
+        <feature>jpa</feature>
+        <feature>transaction-api</feature>
+        <feature>transaction</feature>
+        <feature>jndi</feature>
+        <feature>jdbc</feature>
+        <feature>jms</feature>
+        <feature>cdi</feature>
+        <feature>stax2</feature>
+        <!-- <feature>webconsole</feature>  web-context "/" conflict issue -->
+        <!-- jetty -->
+        <feature>jetty</feature> 
+        <feature>pax-web-karaf</feature>
+        <feature>pax-web-jetty</feature>
+        <feature>pax-web-jetty-websockets</feature>
+        <bundle>mvn:org.eclipse.jetty/jetty-webapp/9.4.52.v20230823</bundle>
+        <!-- spring --> 
+        <feature>spring</feature>
+        <feature>spring-web</feature>
+        <!-- jackson -->
+        <feature>jackson</feature>
+        <feature>jackson-jaxrs</feature>
+        <!-- activemq -->
+        <feature>activemq-client</feature>
+        <!-- hawtio -->
+		<feature>hawtio</feature>
+
+        <!-- jakarta EE -->
+        <bundle>mvn:jakarta.interceptor/jakarta.interceptor-api/1.2.5</bundle>
+        <bundle>mvn:jakarta.websocket/jakarta.websocket-api/1.1.2</bundle>
+        <bundle>mvn:jakarta.validation/jakarta.validation-api/2.0.2</bundle>
+        <bundle>mvn:jakarta.ws.rs/jakarta.ws.rs-api/2.1.6</bundle>
+    </feature>
+
+    <feature name="${project.groupId}.core">
+        <!-- idempiere plugin folder -->
+        <!-- bundle in jar dir -->
+        <bundle>jardir:${idempiere.plugin.path}/com.jaspersoft.studio.bundles.itext_2.1.7.js8_b01</bundle>
+        <bundle>jardir:${idempiere.plugin.path}/org.apache.ant_1.10.10.v20210426-1926</bundle>
+        <bundle>jardir:${idempiere.plugin.path}/org.apache.commons.discovery_0.2.0.v201004190315</bundle>
+
+        <!-- bundle in jar file-->
+        <bundle>file:${idempiere.plugin.path}/bcmail_1.72.0.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/bcpg_1.72.2.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/bcpkix_1.72.0.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/bcprov_1.72.0.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/bctsp_1.46.0.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/bcutil_1.72.0.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/com.diffplug.osgi.extension.sun.misc_0.0.0.jar</bundle>
+        <!-- replaced by Jasckson Feature !!! -->
+        <bundle>file:${idempiere.plugin.path}/com.fasterxml.woodstox.woodstox-core_6.2.6.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/com.github.librepdf.openpdf_1.3.26.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/com.github.librepdf.openpdf-fonts-extra_1.3.26.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/com.google.gson_2.9.0.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/com.google.guava.failureaccess_1.0.1.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/com.google.guava_30.1.1.jre_v202109010034.jar</bundle>
+        <!-- <bundle>file:${idempiere.plugin.path}/com.google.http-client.google-http-client_1.39.2.sp_1_v202109010034.jar</bundle> -->
+        <bundle>mvn:com.google.http-client/google-http-client/1.41.5</bundle>
+        <bundle>file:${idempiere.plugin.path}/com.google.oauth-client_1.31.5.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/com.google.zxing.core_3.4.1.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/com.ibm.icu_69.1.0.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/com.jaspersoft.studio.bundles.barbecue_1.5.0.beta1_b02.jar</bundle>     
+        <!-- <bundle>file:${idempiere.plugin.path}/com.sun.activation.jakarta.activation_1.2.2.jar</bundle> -->
+        <bundle>file:${idempiere.plugin.path}/com.sun.istack.commons-runtime_3.0.12.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/com.sun.mail.gimap_1.6.7.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/com.sun.mail.jakarta.mail_1.6.7.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/com.sun.xml.bind.external.relaxng-datatype_2.3.5.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/com.sun.xml.bind.jaxb-impl_2.3.5.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/com.sun.xml.fastinfoset.FastInfoset_1.2.18.v202109010034.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/com.sun.xml.fastinfoset.FastInfoset_2.0.0.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/com.sun.xml.messaging.saaj.impl_1.5.3.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/com.sun.xml.stream.buffer.streambuffer_1.5.10.jar</bundle>
+        <!-- <bundle>file:${idempiere.plugin.path}/com.sun.xml.ws.jaxws-rt_2.3.5.jar</bundle> -->
+        <!-- <bundle>file:${idempiere.plugin.path}/com.sun.xml.ws.policy_2.7.10.jar</bundle> -->
+        <bundle>file:${idempiere.plugin.path}/groovy_3.0.8.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/groovy-console_3.0.8.jar</bundle>  
+        <bundle>file:${idempiere.plugin.path}/groovy-datetime_3.0.8.jar</bundle>  
+        <bundle>file:${idempiere.plugin.path}/groovy-json_3.0.8.jar</bundle>          
+        <bundle>file:${idempiere.plugin.path}/groovy-jsr223_3.0.8.jar</bundle>  
+        <bundle>file:${idempiere.plugin.path}/groovy-nio_3.0.8.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/groovy-sql_3.0.8.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/groovy-xml_3.0.8.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/io.github.classgraph.classgraph_4.8.147.jar</bundle>
+        <!-- <bundle>file:${idempiere.plugin.path}/jakarta.annotation-api_1.3.5.jar</bundle> -->
+        <!-- <bundle>file:${idempiere.plugin.path}/jakarta.jws-api_2.1.0.jar</bundle> -->
+        <!-- <bundle>file:${idempiere.plugin.path}/jakarta.persistence-api_2.2.3.jar</bundle> -->
+        <!-- <bundle>file:${idempiere.plugin.path}/jakarta.transaction-api_1.3.2.jar</bundle> -->
+        <!-- <bundle>file:${idempiere.plugin.path}/jakarta.validation.jakarta.validation-api_2.0.2.jar</bundle> -->
+        <!-- <bundle>file:${idempiere.plugin.path}/jakarta.ws.rs-api_2.1.6.jar</bundle> -->
+        <bundle>file:${idempiere.plugin.path}/jakarta.xml.bind-api_2.3.3.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/jakarta.xml.soap-api_1.4.2.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/jakarta.xml.ws-api_2.3.3.v202109010034.jar</bundle>
+        <!-- <bundle>file:${idempiere.plugin.path}/javax.enterprise.cdi-api_2.0.0.SP1.jar</bundle> -->
+        <!-- <bundle>file:${idempiere.plugin.path}/javax.interceptor-api_1.2.2.jar</bundle> -->
+        <!-- <bundle>file:${idempiere.plugin.path}/javax.validation.api_1.1.0.Final.jar</bundle> -->
+        <!-- <bundle>file:${idempiere.plugin.path}/javax.websocket-api_1.1.0.jar</bundle> -->
+        <bundle>file:${idempiere.plugin.path}/joda-time_2.10.8.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/json_20190722.0.0.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/net.sf.jasperreports.engine_6.17.0.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/net.sf.supercsv.super-csv_2.4.0.jar</bundle>
+
+        <bundle>file:${idempiere.plugin.path}/org.antlr.antlr4-runtime_4.9.2.jar</bundle>
+
+        <!-- replaced by activemq-client Feature !!!
+        <bundle>file:${idempiere.plugin.path}/org.apache.activemq.activemq-client_5.16.3.jar</bundle> -->
+
+        <!-- replaced by cdi Feature !!!
+        <bundle>file:${idempiere.plugin.path}/org.apache.aries.spifly.dynamic.bundle_1.3.3.jar</bundle> 
+        <bundle>file:${idempiere.plugin.path}/org.apache.aries.util_1.1.3.jar</bundle> -->
+
+        <bundle>file:${idempiere.plugin.path}/org.apache.commons.collections_3.2.2.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.apache.commons.commons-beanutils_1.9.4.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.apache.commons.commons-codec_1.14.0.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.apache.commons.commons-collections4_4.4.0.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.apache.commons.commons-compress_1.21.0.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.apache.commons.commons-configuration2_2.7.0.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.apache.commons.commons-fileupload_1.4.0.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.apache.commons.commons-io_2.11.0.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.apache.commons.commons-net_3.8.0.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.apache.commons.commons-text_1.9.0.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.apache.commons.digester_2.1.0.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.apache.commons.lang_2.6.0.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.apache.commons.lang3_3.12.0.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.apache.commons.logging_1.2.0.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.apache.commons.math3_3.6.1.jar</bundle>
+
+        <!-- replaced by Apache cxf Feature !!! -->
+
+        <!-- ignore felix -->
+
+        <bundle>file:${idempiere.plugin.path}/org.apache.httpcomponents.client5.httpclient5_5.1.3.v20221013-1742.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.apache.httpcomponents.core5.httpcore5_5.1.4.v20221013-1742.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.apache.httpcomponents.core5.httpcore5-h2_5.1.4.v20221013-1742.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.apache.httpcomponents.httpclient_4.5.13.v20210128-2225.jar</bundle>     
+        <bundle>file:${idempiere.plugin.path}/org.apache.httpcomponents.httpcore_4.4.14.v20210128-2225.jar</bundle>   
+        <!-- org.apache.neethi_3.1.1.jar --> 
+        <bundle>file:${idempiere.plugin.path}/org.apache.poi.ooxml-schemas_4.1.2.v202109010034.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.apache.servicemix.bundles.batik_1.14.0.1.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.apache.servicemix.bundles.cglib_3.3.0.1.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.apache.servicemix.bundles.jaxen_1.1.6.1.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.apache.servicemix.bundles.rhino_1.7.13.1.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.apache.servicemix.bundles.xerces_2.12.1.1.jar</bundle>
+
+        <!-- ignore taglibs -->
+
+        <!-- org.apache.ws.xmlschema.core_2.2.5.jar -->
+
+        <bundle>file:${idempiere.plugin.path}/org.apache.xalan_2.7.2.v20201124-1837.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.apache.xml.resolver_1.2.0.v201005080400.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.apache.xml.serializer_2.7.1.v201005080400.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.atmosphere.runtime_2.7.2.v202109010034.jar</bundle>
+        <!-- org.codehaus.jettison.jettison_1.4.1.jar -->
+        <bundle>file:${idempiere.plugin.path}/org.cryptacular_1.2.4.jar</bundle>
+
+        <!-- ignore org.eclipse -->
+        <!-- ignore org.glassfish -->
+
+        <bundle>file:${idempiere.plugin.path}/org.fusesource.hawtbuf.hawtbuf_1.11.0.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.hamcrest.core_1.3.0.v20180420-1519.jar</bundle>
+        <!-- <bundle>file:${idempiere.plugin.path}/org.junit_4.13.2.v20211018-1956.jar</bundle> -->
+        <bundle>file:${idempiere.plugin.path}/org.jvnet.mimepull_1.9.14.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.jvnet.staxex.stax-ex_1.8.3.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.krysalis.barcode4j_2.1.0.jar</bundle>    
+
+        <!-- ignore org.mortbay.jasper / org.objectweb / org.osgi -->
+        <bundle>file:${idempiere.plugin.path}/org.osgi.service.prefs_1.1.2.202109301733.jar</bundle>
+
+
+        <bundle>file:${idempiere.plugin.path}/org.passay_1.6.1.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.sat4j.core_2.3.6.v20201214.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.sat4j.pb_2.3.6.v20201214.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.tukaani.xz_1.9.0.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.w3c.css.sac_1.3.1.v200903091627.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.w3c.dom.events_3.0.0.draft20060413_v201105210656.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.w3c.dom.smil_1.0.1.v200903091627.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.w3c.dom.svg_1.1.0.v201011041433.jar</bundle>    
+        <bundle>file:${idempiere.plugin.path}/org.zkoss.zsoup_1.8.2.5.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/slf4j.api_1.7.30.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/slf4j.jdk14_1.7.30.jar</bundle>
+        
+        <!-- replaced by stax2 Feature !!! 
+        <bundle>file:${idempiere.plugin.path}/stax2-api_4.2.1.jar</bundle> -->
+
+        <!-- warpped jar -->
+        <bundle>wrap:mvn:com.google.http-client/google-http-client-gson/1.41.5$Bundle-SymbolicName=wrapped.com.google.http-client.google-http-client-gson&amp;Bundle-Version=1.41.5&amp;Export-Package=*;version=1.41.5</bundle>
+        <bundle>wrap:mvn:com.google.zxing/javase/3.4.1$Bundle-SymbolicName=wrapped.com.google.zxing.javase&amp;Bundle-Version=3.4.1&amp;Export-Package=*;version=3.4.1</bundle>
+        <!-- ignore com.sun -->
+        <bundle>wrap:mvn:com.zaxxer/SparseBitSet/1.2$Bundle-SymbolicName=wwrapped.com.zaxxer.SparseBitSet&amp;Bundle-Version=1.2.0&amp;Export-Package=*;version=1.2.0</bundle>
+        <bundle>wrap:mvn:dev.samstevens.totp/totp/1.7.1$Bundle-SymbolicName=wrapped.dev.samstevens.totp.totp&amp;Bundle-Version=1.7.1&amp;Export-Package=*;version=1.7.1</bundle>
+        <bundle>wrap:mvn:io.grpc/grpc-context/1.27.2$Bundle-SymbolicName=wrapped.io.grpc.grpc-context&amp;Bundle-Version=1.27.2&amp;Export-Package=*;version=1.27.2</bundle>
+        <bundle>wrap:mvn:io.opencensus/opencensus-api/0.28.3$Bundle-SymbolicName=wrapped.io.opencensus.opencensus-api&amp;Bundle-Version=0.28.3&amp;Export-Package=*;version=0.28.3</bundle>
+        <bundle>wrap:mvn:io.opencensus/opencensus-contrib-http-util/0.28.3$Bundle-SymbolicName=wrapped.io.opencensus.opencensus-contrib-http-util&amp;Bundle-Version=0.28.3&amp;Export-Package=*;version=0.28.3</bundle>
+        <!-- ignore activemq -->
+        <!-- <bundle>file:${idempiere.plugin.path}/wrapped.org.apache.cxf.cxf-rt-ws-transfer_3.4.4.jar</bundle> -->
+        <bundle>file:${idempiere.plugin.path}/wrapped.org.apache.lucene.lucene-analyzers-common_8.4.1.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/wrapped.org.apache.lucene.lucene-core_8.4.1.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/wrapped.org.apache.poi.poi_4.1.2.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/wrapped.org.apache.poi.poi-ooxml_4.1.2.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/wrapped.org.apache.xmlbeans.xmlbeans_3.1.0.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/wrapped.org.apache.xmlgraphics.xmlgraphics-commons_2.6.0.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/wrapped.org.dom4j.dom4j_2.1.3.jar</bundle>
+        <!-- <bundle>file:${idempiere.plugin.path}/wrapped.org.glassfish.jaxb.txw2_2.3.5.jar</bundle> -->
+        <bundle>file:${idempiere.plugin.path}/wrapped.org.jfree.jcommon_1.0.24.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/wrapped.org.jfree.jfreechart_1.0.19.jar</bundle>
+        <!-- ignore springframework -->
+        <bundle>file:${idempiere.plugin.path}/wrapped.wsdl4j.wsdl4j_1.6.3.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/xstream_1.4.17.jar</bundle>
+
+        <!-- Eclipse OSGi -->
+        <bundle>file:${idempiere.plugin.path}/org.eclipse.ant.core_3.6.500.v20220718-1722.jar</bundle>       
+        <bundle>file:${idempiere.plugin.path}/org.eclipse.core.contenttype_3.8.200.v20220817-1539.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.eclipse.core.jobs_3.13.300.v20230111-0823.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.eclipse.core.runtime_3.26.100.v20221021-0005.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.eclipse.core.variables_3.5.100.v20210721-1355.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.eclipse.equinox.app_1.6.200.v20220720-2012.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.eclipse.equinox.common_3.17.100.v20230202-1341.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.eclipse.equinox.preferences_3.10.200.v20230120-0604.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.eclipse.equinox.registry_3.11.200.v20220817-1601.jar</bundle>
+
+        <!-- zk -->
+        <bundle>file:${idempiere.plugin.path}/zcommon_9.6.4.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/zel_9.6.4.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/zhtml_9.6.4.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/zjavassist_9.6.4.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/zk_9.6.4.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/zkbind_9.6.4.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/zkplus_9.6.4.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/zkwebfragment_9.6.4.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/zul_9.6.4.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/zweb_9.6.4.jar</bundle> 
+        <bundle>file:${idempiere.plugin.path}/zweb-dsp_9.6.4.jar</bundle>       
+    </feature>
+
+    <feature name="${project.groupId}.server">
+        <!-- apache ecs (customized for idempiere) -->
+        <bundle>file:${idempiere.plugin.path}/org.apache.ecs_${idempiere-karaf.version}.jar</bundle> 
+
+        <bundle>file:${idempiere.plugin.path}/org.idempiere.zk.extra_${idempiere-karaf.version}.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.adempiere.report.jasper.library_${idempiere-karaf.version}.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.adempiere.base_${idempiere-karaf.version}.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.adempiere.base.callout_${idempiere-karaf.version}.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.adempiere.base.process_${idempiere-karaf.version}.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.adempiere.plugin.utils_${idempiere-karaf.version}.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.adempiere.payment.processor_${idempiere-karaf.version}.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.adempiere.pipo_${idempiere-karaf.version}.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.adempiere.pipo.handlers_${idempiere-karaf.version}.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.adempiere.install_${idempiere-karaf.version}.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.compiere.db.oracle.provider_${idempiere-karaf.version}.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.compiere.db.postgresql.provider_${idempiere-karaf.version}.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.idempiere.hazelcast.service_${idempiere-karaf.version}.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.adempiere.report.jasper_${idempiere-karaf.version}.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.adempiere.ui_${idempiere-karaf.version}.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.adempiere.server_${idempiere-karaf.version}.jar</bundle>  
+        <bundle>file:${idempiere.plugin.path}/org.adempiere.replication_${idempiere-karaf.version}.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.adempiere.replication.server_${idempiere-karaf.version}.jar</bundle>
+        
+        <bundle>file:${idempiere.plugin.path}/org.idempiere.zk.billboard_${idempiere-karaf.version}.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.adempiere.ui.zk_${idempiere-karaf.version}.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.idempiere.zk.billboard.chart_${idempiere-karaf.version}.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.idempiere.keikai_${idempiere-karaf.version}.jar</bundle>
+        <bundle>file:${idempiere.plugin.path}/org.idempiere.printformat.editor_${idempiere-karaf.version}.jar</bundle>
+    </feature>
+
+	<feature name="${project.groupId}.webservices">
+        <feature prerequisite="true">cxf</feature> <!-- web-context "/" conflict issue -->
+		<bundle>file:plugins/org.apache.cxf.cxf-rt-rs-extension-providers_3.1.18.jar</bundle>
+        <bundle>file:plugins/org.apache.cxf.cxf-rt-databinding-xmlbeans_3.1.18.jar</bundle>
+		<bundle>file:plugins/org.apache.neethi_3.1.1.jar</bundle>
+		<bundle>file:plugins/org.apache.ws.xmlschema.core_2.2.5.jar</bundle>
+		<bundle>file:plugins/org.codehaus.jettison.jettison_1.4.1.jar</bundle>
+        <bundle>file:plugins/org.idempiere.webservices_${idempiere-karaf.version}.jar</bundle>
+        <bundle>file:plugins/org.idempiere.webservices.resources_${idempiere-karaf.version}.jar</bundle>
+    </feature>
+
+	<feature name="${project.groupId}.all">
+		<feature prerequisite="true">${project.groupId}.internal</feature>
+		<feature prerequisite="true">${project.groupId}.core</feature>
+		<feature>${project.groupId}.server</feature>
+	</feature>
+</features>

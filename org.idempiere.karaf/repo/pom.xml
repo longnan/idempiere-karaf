@@ -1,0 +1,75 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.idempiere.karaf</groupId>
+        <artifactId>org.idempiere.karaf.parent</artifactId>
+        <version>${revision}</version>
+        <relativePath>..</relativePath>
+    </parent>
+
+    <artifactId>org.idempiere.karaf.repo</artifactId>
+    <packaging>bundle</packaging>
+
+	<properties>
+		<karaf.bundles.repository>bundles.repository</karaf.bundles.repository>
+	</properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.karaf.tooling</groupId>
+                <artifactId>karaf-maven-plugin</artifactId>
+                <version>${karaf.version}</version>
+                <executions>
+                    <execution>
+                        <id>features-add-to-repository</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>features-add-to-repository</goal>
+                        </goals>                        
+                        <configuration>
+                            <descriptors>
+                                <descriptor>mvn:org.apache.karaf.features/specs/${karaf.version}/xml/features</descriptor>
+                                <descriptor>mvn:org.apache.karaf.features/standard/${karaf.version}/xml/features</descriptor>
+                                <descriptor>mvn:org.apache.karaf.features/spring/${karaf.version}/xml/features</descriptor>
+                                <descriptor>mvn:org.apache.karaf.features/enterprise/${karaf.version}/xml/features</descriptor>                                
+                                <descriptor>mvn:org.idempiere.karaf/org.idempiere.karaf.feature/${project.version}/xml/features</descriptor>
+                            </descriptors>
+                            <features>
+                                <feature>org.idempiere.karaf.all</feature>   
+                            </features>
+                            <repository>${project.build.directory}/${karaf.bundles.repository}</repository>       
+                            <karafVersion>${karaf.version}</karafVersion>                            
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>    
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <descriptors>
+                        <descriptor>src/main/assembly/assembly.xml</descriptor>
+                    </descriptors>
+                    <finalName>${karaf.bundles.repository}</finalName>
+                    <appendAssemblyId>false</appendAssemblyId>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>create-archive</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>        
+        </plugins>              
+    </build>
+</project>
