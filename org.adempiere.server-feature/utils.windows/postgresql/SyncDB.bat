@@ -52,6 +52,7 @@
 @set "LISTPENDINGFOL=%TMPFOLDER%\lisPENDINGFOL_%UID%.txt"
 @set "OUTDIR=%TMPFOLDER%\SyncDB_out_%UID%"
 @set "MSGFILE=%TMPFOLDER%\SyncDB_error_%UID%.txt"
+@set "HAS_ERRORS="
 
 @if exist "%MSGFILE%" @del "%MSGFILE%" >nul 2>&1
 
@@ -59,23 +60,25 @@
 @findstr /R /V "^$" "%LISTDB_RAW%" > "%LISTDB%"
 @del "%LISTDB_RAW%" >nul 2>&1
 @sort "%LISTDB%" /o "%LISTDB%"
+@set "HAS_DB="
+@for /f "usebackq delims=" %%A in ("%LISTDB%") do @set "HAS_DB=1"
 
 @type nul > "%LISTFS%"
 @for /f "delims=" %%F in ('dir /b /s "%DIR_SCRIPTS%\*.sql" 2^>nul ^| findstr /I "\\%ADEMPIERE_DB_PATH%\\" ^| findstr /V /I "\\processes_post_migration\\%ADEMPIERE_DB_PATH%\\"') do @echo %%~nxF>>"%LISTFS%"
 @sort "%LISTFS%" /o "%LISTFS%"
+@set "HAS_FS="
+@for /f "usebackq delims=" %%A in ("%LISTFS%") do @set "HAS_FS=1"
 
-@set "DBSIZE=0"
-@for %%A in ("%LISTDB%") do @set "DBSIZE=%%~zA"
-@if !DBSIZE! gtr 0 (
+@if defined HAS_DB (
     @findstr /V /X /I /L /G:"%LISTDB%" "%LISTFS%" > "%LISTPENDING%"
 ) else (
     @copy /Y "%LISTFS%" "%LISTPENDING%" >nul
 )
 
 @set "APPLIED=N"
-@set "PENDINGSIZE=0"
-@for %%A in ("%LISTPENDING%") do @set "PENDINGSIZE=%%~zA"
-@if !PENDINGSIZE! gtr 0 (
+@set "HAS_PENDING="
+@for /f "usebackq delims=" %%A in ("%LISTPENDING%") do @set "HAS_PENDING=1"
+@if defined HAS_PENDING (
     @type nul > "%LISTPENDINGFOL%"
     @for /f "usebackq delims=" %%F in ("%LISTPENDING%") do (
         @for /f "delims=" %%S in ('dir /b /s "%DIR_SCRIPTS%\%%F" 2^>nul ^| findstr /I "\\%ADEMPIERE_DB_PATH%\\"') do @echo %%S>>"%LISTPENDINGFOL%"
@@ -92,13 +95,12 @@
         @findstr /R /C:"^ERROR:" /C:"^FEHLER:" /C:"^FATAL:" /C:"^ERRO:" "!OUTFILE!" >nul
         @if not errorlevel 1 (
             @Echo **** ERROR ON FILE !OUTFILE! - Please verify ****>>"%MSGFILE%"
+            @set "HAS_ERRORS=1"
             @goto pendingdone
         )
     )
 ) else (
-    @set "FSSIZE=0"
-    @for %%A in ("%LISTFS%") do @set "FSSIZE=%%~zA"
-    @if !FSSIZE! gtr 0 (
+    @if defined HAS_FS (
         @Echo Database is already in sync - no scripts pending to apply
     ) else (
         @Echo No scripts were found to apply
@@ -121,21 +123,18 @@
         @findstr /R /C:"^ERROR:" /C:"^FEHLER:" /C:"^FATAL:" /C:"^ERRO:" "!OUTFILE!" >nul
         @if not errorlevel 1 (
             @Echo **** ERROR ON FILE !OUTFILE! - Please verify ****>>"%MSGFILE%"
+            @set "HAS_ERRORS=1"
         )
     )
     @popd
 )
 
 @set "PGPASSWORD="
-@if exist "%MSGFILE%" (
-    @set "MSGSIZE=0"
-    @for %%A in ("%MSGFILE%") do @set "MSGSIZE=%%~zA"
-    @if !MSGSIZE! gtr 0 (
-        @type "%MSGFILE%"
-        @Echo.
-        @Echo Errors were found during the process (see message above) - please review and fix the error running manually the script - and then restart this process again
-        @exit /b 1
-    )
+@if defined HAS_ERRORS (
+    @type "%MSGFILE%"
+    @Echo.
+    @Echo Errors were found during the process (see message above) - please review and fix the error running manually the script - and then restart this process again
+    @exit /b 1
 )
 
 @goto end
