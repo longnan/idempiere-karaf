@@ -78,32 +78,34 @@
 @set "APPLIED=N"
 @set "HAS_PENDING="
 @for /f "usebackq delims=" %%A in ("%LISTPENDING%") do @set "HAS_PENDING=1"
-@if defined HAS_PENDING (
-    @type nul > "%LISTPENDINGFOL%"
-    @for /f "usebackq delims=" %%F in ("%LISTPENDING%") do (
-        @for /f "delims=" %%S in ('dir /b /s "%DIR_SCRIPTS%\%%F" 2^>nul ^| findstr /I "\\%ADEMPIERE_DB_PATH%\\"') do @echo %%S>>"%LISTPENDINGFOL%"
-    )
-    @sort "%LISTPENDINGFOL%" /o "%LISTPENDINGFOL%"
-    @mkdir "%OUTDIR%" >nul 2>&1
-    @for /f "usebackq delims=" %%S in ("%LISTPENDINGFOL%") do (
-        @set "SCRIPT=%%S"
-        @set "OUTFILE=%OUTDIR%\%%~nS.out"
-        @Echo Applying !SCRIPT!
-        @!CMD! < "!SCRIPT!" > "!OUTFILE!" 2>&1
-        @type "!OUTFILE!"
-        @set "APPLIED=Y"
-        @findstr /R /C:"^ERROR:" /C:"^FEHLER:" /C:"^FATAL:" /C:"^ERRO:" "!OUTFILE!" >nul
-        @if not errorlevel 1 (
-            @Echo **** ERROR ON FILE !OUTFILE! - Please verify ****>>"%MSGFILE%"
-            @set "HAS_ERRORS=1"
-            @goto pendingdone
-        )
-    )
-) else (
-    @if defined HAS_FS (
-        @Echo Database is already in sync - no scripts pending to apply
-    ) else (
-        @Echo No scripts were found to apply
+@if defined HAS_PENDING goto processpending
+@if defined HAS_FS goto insync
+@Echo No scripts were found to apply
+@goto pendingdone
+
+:insync
+@Echo Database is already in sync - no scripts pending to apply
+@goto pendingdone
+
+:processpending
+@type nul > "%LISTPENDINGFOL%"
+@for /f "usebackq delims=" %%F in ("%LISTPENDING%") do (
+    @for /f "delims=" %%S in ('dir /b /s "%DIR_SCRIPTS%\%%F" 2^>nul ^| findstr /I "\\%ADEMPIERE_DB_PATH%\\"') do @echo %%S>>"%LISTPENDINGFOL%"
+)
+@sort "%LISTPENDINGFOL%" /o "%LISTPENDINGFOL%"
+@mkdir "%OUTDIR%" >nul 2>&1
+@for /f "usebackq delims=" %%S in ("%LISTPENDINGFOL%") do (
+    @set "SCRIPT=%%S"
+    @set "OUTFILE=%OUTDIR%\%%~nS.out"
+    @Echo Applying !SCRIPT!
+    @!CMD! < "!SCRIPT!" > "!OUTFILE!" 2>&1
+    @type "!OUTFILE!"
+    @set "APPLIED=Y"
+    @findstr /R /C:"^ERROR:" /C:"^FEHLER:" /C:"^FATAL:" /C:"^ERRO:" "!OUTFILE!" >nul
+    @if not errorlevel 1 (
+        @Echo **** ERROR ON FILE !OUTFILE! - Please verify ****>>"%MSGFILE%"
+        @set "HAS_ERRORS=1"
+        @goto pendingdone
     )
 )
 
